@@ -1,0 +1,17 @@
+FROM node:alpine
+
+WORKDIR '/app'
+
+COPY package.json ./
+
+RUN apk add --no-cache --virtual .gyp \
+        python \
+        make \
+        g++ \
+    && npm install --only=prod \
+    && apk del .gyp gcc g++ python
+
+COPY . .
+# COPY hosts /etc/hosts
+
+CMD ["npm", "run", "start:server"]

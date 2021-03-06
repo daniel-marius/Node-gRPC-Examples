@@ -1,0 +1,17 @@
+FROM node:alpine
+
+WORKDIR /app
+
+COPY package.json ./
+
+RUN apk add --no-cache --virtual .gyp \
+        python \
+        make \
+        g++ \
+    && npm install --only=prod \
+    && apk del .gyp gcc g++ python
+
+COPY . .
+
+# CMD ["node", "./server/server.js"]
+CMD ["npm", "run", "start:server"]

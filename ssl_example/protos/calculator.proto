@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package calculator;
+
+service CalculatorService {
+  // Unary API, rpc - Protocol, Sum - Method Name, SumRequest - Request, SumResponse - Response
+  rpc Sum (SumRequest) returns (SumResponse) {};
+
+  // Server Streaming API
+  rpc PrimeNumberDecomposition (PrimeNumberDecompositionRequest) returns (stream PrimeNumberDecompositionResponse) {};
+
+  // Client Streaming API
+  rpc ComputeAverage (stream ComputeAverageRequest) returns (ComputeAverageResponse) {};
+
+  // Bidirectional Streaming API
+  rpc FindMaximum (stream FindMaximumRequest) returns (stream FindMaximumResponse) {};
+
+  // Error Handling
+  // This rpc will throw an exception if the number sent is negative
+  rpc SquareRoot (SquareRootRequest) returns (SquareRootResponse) {};
+}
+
+// Definition of SumRequest
+message SumRequest {
+  int32 first_number = 1;
+  int32 second_number = 2;
+}
+
+// Definition of SumResponse
+message SumResponse {
+  int32 sum_result = 1;
+}
+
+message PrimeNumberDecompositionRequest {
+  int32 number = 1;
+}
+
+message PrimeNumberDecompositionResponse {
+  int32 prime_factor = 1;
+}
+
+message ComputeAverageRequest {
+  int32 number = 1;
+}
+
+message ComputeAverageResponse {
+  double average = 1;
+}
+
+message FindMaximumRequest {
+  int32 number = 1;
+}
+
+message FindMaximumResponse {
+  int32 maximum = 1;
+}
+
+message SquareRootRequest {
+  int32 number = 1;
+}
+
+message SquareRootResponse {
+  double number_root = 1;
+}

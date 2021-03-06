@@ -1,0 +1,24 @@
+version: '3'
+services:
+  express-server:
+    container_name: express-server
+    build:
+      context: .
+      dockerfile: ClientDockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+    depends_on:
+      - grpc-server
+
+  grpc-server:
+    container_name: grpc-server
+    build:
+      context: .
+      dockerfile: ServerDockerfile
+    ports:
+      - "30043:30043"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=30043

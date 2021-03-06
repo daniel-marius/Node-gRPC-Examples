@@ -1,0 +1,21 @@
+{
+  "name": "myapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "gen:certs": "./scripts/gen_certs.sh",
+    "start:client": "node client/clientGreet.js",
+    "start:server": "node server/serverGreet.js",
+    "start": " concurrently npm:start:*"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@grpc/proto-loader": "^0.5.6",
+    "concurrently": "^5.3.0",
+    "grpc": "^1.24.5",
+    "proto-loader": "^0.2.0"
+  }
+}

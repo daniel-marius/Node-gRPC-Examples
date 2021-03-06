@@ -1,0 +1,27 @@
+version: '3'
+services:
+  grpc-server:
+    container_name: grpc-server
+    tty: true
+    build:
+      context: .
+      dockerfile: ServerDockerfile
+    environment:
+      - HOST=0.0.0.0
+      - PORT=50051
+    stdin_open: true
+
+  grpc-client:
+    container_name: grpc-client
+    tty: true
+    build:
+      context: .
+      dockerfile: ClientDockerfile
+    extra_hosts:
+      - "example.com:172.18.0.2"
+    environment:
+      - HOST=example.com
+      - PORT=50051
+    stdin_open: true
+    depends_on:
+      - grpc-server

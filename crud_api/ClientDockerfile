@@ -1,0 +1,19 @@
+FROM node:alpine
+
+WORKDIR /app
+
+COPY package.json ./
+
+RUN apk add --no-cache --virtual .gyp \
+        python \
+        make \
+        g++ \
+    && npm install --only=prod \
+    && apk del .gyp gcc g++ python
+
+COPY . .
+
+EXPOSE 3000
+
+# CMD ["node", "./client/index.js"]
+CMD ["npm", "run", "start:express"]
